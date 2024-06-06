@@ -30,7 +30,14 @@ export const download = async (options: DownloadOptions): Promise<MainResponse> 
 
     type AxiosReponse = { data: MainResponse };
 
-    const { data } = (await axios.post(parameters.base_url, body)) as AxiosReponse;
+    const url = parameters.base_url + '/api/json';
 
-    return data;
+    const response = (await axios.post(url, body, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })) as AxiosReponse;
+
+    return response.data;
 }
